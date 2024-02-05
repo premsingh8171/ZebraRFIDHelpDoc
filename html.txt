@@ -1,0 +1,34 @@
+<!-- RFIDScanner.razor -->
+@page "/rfidscanner"
+@inherits RFIDScannerBase
+
+<h3>RFID Scanner</h3>
+
+<button @onclick="StartScanning">Start Scanning</button>
+<button @onclick="StopScanning">Stop Scanning</button>
+
+<p>Scanned RFID Tag: @scannedTag</p>
+
+@code {
+    private string scannedTag;
+
+    private void StartScanning()
+    {
+        // Initialize and start RFID scanning
+        InitializeRFIDScanner();
+        StartRFIDScanner();
+    }
+
+    private void StopScanning()
+    {
+        // Stop RFID scanning
+        StopRFIDScanner();
+    }
+
+    private void OnRFIDTagRead(object sender, RFIDReadEventArgs e)
+    {
+        // Handle RFID tag read event
+        scannedTag = e.TagData.TagID;
+        StateHasChanged(); // Update UI
+    }
+}
